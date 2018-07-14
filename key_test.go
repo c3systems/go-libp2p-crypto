@@ -1,8 +1,9 @@
 package crypto_test
 
 import (
-	. "github.com/libp2p/go-libp2p-crypto"
-	tu "github.com/libp2p/go-libp2p-crypto/test"
+	// TODO: change back to libp2p for pr
+	. "github.com/c3systems/go-libp2p-crypto"
+	tu "github.com/c3systems/go-libp2p-crypto/test"
 
 	"bytes"
 	"crypto/rand"
@@ -31,7 +32,9 @@ func testKeySignature(t *testing.T, sk PrivKey) {
 	pk := sk.GetPublic()
 
 	text := make([]byte, 16)
-	rand.Read(text)
+	if _, err := rand.Read(text); err != nil {
+		t.Fatal(err)
+	}
 
 	sig, err := sk.Sign(text)
 	if err != nil {

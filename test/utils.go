@@ -4,7 +4,8 @@ import (
 	"math/rand"
 	"time"
 
-	ci "github.com/libp2p/go-libp2p-crypto"
+	// TODO: change back to libp2p for pr
+	ci "github.com/c3systems/go-libp2p-crypto"
 )
 
 func RandTestKeyPair(typ, bits int) (ci.PrivKey, ci.PubKey, error) {
