@@ -63,6 +63,11 @@ func GenerateECDSAKeyPairWithCurve(curve elliptic.Curve, src io.Reader) (PrivKey
 	return &ECDSAPrivateKey{priv}, &ECDSAPublicKey{&priv.PublicKey}, nil
 }
 
+// GenerateECDSAKeyPairFromKey generates a new ecdsa private and public key from an input private key
+func GenerateECDSAKeyPairFromKey(priv *ecdsa.PrivateKey) (PrivKey, PubKey, error) {
+	return &ECDSAPrivateKey{priv}, &ECDSAPublicKey{&priv.PublicKey}, nil
+}
+
 // MarshalECDSAPrivateKey returns x509 bytes from a private key
 func MarshalECDSAPrivateKey(ePriv ECDSAPrivateKey) ([]byte, error) {
 	return x509.MarshalECPrivateKey(ePriv.priv)
