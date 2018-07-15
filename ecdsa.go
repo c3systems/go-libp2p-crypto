@@ -39,6 +39,8 @@ var (
 	ErrNotECDSAPubKey = errors.New("not an ecdsa public key")
 	// ErrNilSig is returned when the signature is nil
 	ErrNilSig = errors.New("sig is nil")
+	// ErrNilPrivateKey is returned when a nil private key is provided
+	ErrNilPrivateKey = errors.New("private key is nil")
 	// ECDSACurve is the default ecdsa curve used
 	ECDSACurve = elliptic.P256()
 )
@@ -65,6 +67,10 @@ func GenerateECDSAKeyPairWithCurve(curve elliptic.Curve, src io.Reader) (PrivKey
 
 // GenerateECDSAKeyPairFromKey generates a new ecdsa private and public key from an input private key
 func GenerateECDSAKeyPairFromKey(priv *ecdsa.PrivateKey) (PrivKey, PubKey, error) {
+	if priv == nil {
+		return nil, nil, ErrNilPrivateKey
+	}
+
 	return &ECDSAPrivateKey{priv}, &ECDSAPublicKey{&priv.PublicKey}, nil
 }
 
